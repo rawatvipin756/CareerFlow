@@ -1,6 +1,8 @@
 import "./Dashboard.css";
+import {useState} from "react";
 
 const Dashboard=()=> {
+  let showForm=(true);
   return (
     <div>
       <section className="dashboard">
@@ -21,8 +23,30 @@ const Dashboard=()=> {
           <p>2</p>
         </div>
       </section>
-      <section>
+      <section className="application-section">
         <h2>Your Application</h2>
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Job Role</th>
+                  <th>Status</th>
+                  <th>Applied Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Relience</td>
+                  <td>Technician</td>
+                  <td>Pending</td>
+                  <td>20-10-2026</td>
+                  <td>Delete</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </section>
       <button>ADD Application</button>
     </div>
