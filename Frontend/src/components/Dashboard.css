@@ -1,0 +1,21 @@
+.dashboard {
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+}
+.dashboard-card {
+    background-color:white;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:20px;
+}
+.dashboard-card label {
+    font-size:16px;
+    font-weight:600;
+    color:#64748b;
+}
+.dashboard-card p {
+    font-size:28px;
+    font-weight:bold;
+    margin:10px 0 0;
+}

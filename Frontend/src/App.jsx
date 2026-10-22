@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import HomePage from "./pages/HomePage";
 
 function App() {
 
   return (
     <div>
-      <h1>CareerFlow</h1>
-      <p>Track your job applications in one place.</p>
+      <HomePage/>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
