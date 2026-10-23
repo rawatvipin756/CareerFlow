@@ -2,7 +2,7 @@ import "./Dashboard.css";
 import {useState} from "react";
 
 const Dashboard=()=> {
-  let showForm=(true);
+  let [showForm,setShowForm]=useState(false);
   return (
     <div>
       <section className="dashboard">
@@ -48,7 +48,37 @@ const Dashboard=()=> {
             </table>
           </div>
       </section>
-      <button>ADD Application</button>
+      <button onClick={()=>setShowForm(true)}>ADD Application</button>
+      {showForm && (
+        <>
+          <h2>Add New Application</h2>
+          <form>
+            <div>
+              <label>Comapany Name</label>
+              <input 
+                type="text" 
+                name="company" 
+                placeholder="Enter Company Name" 
+                required
+              />
+              <label>Job Role</label>
+              <input 
+               type="text" 
+               name="Job role"
+               placeholder="Enter Role" 
+               required
+              />
+              <label>Status</label>
+              <select name="status" required>
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+              </select>
+              <button type='submit'>Submit</button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 };
