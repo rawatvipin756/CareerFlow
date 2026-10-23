@@ -3,24 +3,58 @@ import {useState} from "react";
 
 const Dashboard=()=> {
   let [showForm,setShowForm]=useState(false);
+  const [applications,setApplications]=useState([]);
+
+  const handleSubmit=(e)=> {
+    e.preventDefault();
+    const formData=new FormData(e.target);
+    const company=formData.get("company");
+    const role=formData.get("role");
+    const appliedDate=formData.get("appliedDate");
+    const status=formData.get("status");
+    const newApplications={
+      company,
+      role,
+      appliedDate,
+      status
+    };
+    console.log(company,role,appliedDate,status);
+    setApplications(prev => [...prev,newApplications]);
+    e.target.reset();
+    setShowForm(false);
+  }
+
+  const handleDelete=(index)=> {
+    setApplications(prev=> prev.filter((application,i)=> i !== index));
+  }
+
+  let countApp=applications.filter(application => 
+    application.status==="Applied").length;
+
+  let countInterview=applications.filter(application => 
+    application.status==="Interview").length;
+
+  let countOffer=applications.filter(application => 
+    application.status==="Offer").length;
+
   return (
     <div>
       <section className="dashboard">
         <div className="dashboard-card">
           <label>Total Applications</label>
-          <p>12</p>
+          <p>{applications.length}</p>
         </div>
         <div className="dashboard-card">
           <label>Total Applied</label>
-          <p>6</p>
+          <p>{countApp}</p>
         </div>
         <div className="dashboard-card">
           <label>Total Interviews</label>
-          <p>4</p>
+          <p>{countInterview}</p>
         </div>
         <div className="dashboard-card">
           <label>Total offers</label>
-          <p>2</p>
+          <p>{countOffer}</p>
         </div>
       </section>
       <section className="application-section">
@@ -37,13 +71,15 @@ const Dashboard=()=> {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Relience</td>
-                  <td>Technician</td>
-                  <td>Pending</td>
-                  <td>20-10-2026</td>
-                  <td>Delete</td>
-                </tr>
+                {applications.map((application,index)=> (
+                  <tr key={index}>
+                      <td>{application.company}</td>
+                      <td>{application.role}</td>
+                      <td>{application.status}</td>
+                      <td>{application.appliedDate}</td>
+                      <td><button onClick={()=> handleDelete(index)}>Delete</button></td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -52,7 +88,7 @@ const Dashboard=()=> {
       {showForm && (
         <>
           <h2>Add New Application</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label>Comapany Name</label>
               <input 
@@ -64,9 +100,15 @@ const Dashboard=()=> {
               <label>Job Role</label>
               <input 
                type="text" 
-               name="Job role"
+               name="role"
                placeholder="Enter Role" 
                required
+              />
+              <label>Applied Date</label>
+              <input
+                type="date"
+                name="appliedDate"
+                required
               />
               <label>Status</label>
               <select name="status" required>
