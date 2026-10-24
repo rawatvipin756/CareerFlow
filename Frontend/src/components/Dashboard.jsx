@@ -66,7 +66,20 @@ const Dashboard=()=> {
           <p>{countOffer}</p>
         </div>
       </section>
+
       <section className="application-section">
+        <div className="application-header">
+          <div>
+              <h2>Your Applications</h2>
+              <p>Track and manage your job applications.</p>
+          </div>
+          <button
+              className="addAppBtn"
+              onClick={() => {
+                  setEditForm(null);
+                  setShowForm(true);
+              }}> + Add Application</button>
+         </div>
         <h2>Your Application</h2>
           <div className="table-container">
             <table>
@@ -111,7 +124,6 @@ const Dashboard=()=> {
             </table>
           </div>
       </section>
-      <button onClick={()=>setShowForm(true)} className="addAppBtn">ADD Application</button>
       {showForm && (
         <div className="form-overlay">
           <div className="app-form">

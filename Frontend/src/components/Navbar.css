@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+    background-color: #f8fafc;
+}
 .header {
     background: #ffffff;
     border-bottom: 1px solid #e2e8f0;
