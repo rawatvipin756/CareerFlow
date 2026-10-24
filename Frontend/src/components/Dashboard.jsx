@@ -9,27 +9,28 @@ const Dashboard=()=> {
   const handleSubmit=(e)=> {
     e.preventDefault();
     const formData=new FormData(e.target);
-      const company=formData.get("company");
-      const role=formData.get("role");
-      const appliedDate=formData.get("appliedDate");
-      const status=formData.get("status");
-      const newApplications={
-        company,
-        role,
-        appliedDate,
-        status
-      };
+    const company=formData.get("company");
+    const role=formData.get("role");
+    const appliedDate=formData.get("appliedDate");
+    const status=formData.get("status");
+    const newApplications={
+      company,
+      role,
+      appliedDate,
+      status
+    };
     if(editForm){
-      setApplications(prev=> prev.map((app,index)=> 
-        index===editForm.index? newApplications:app
-      ))
+      setApplications(prev=> 
+        prev.map((app,index)=> 
+          index===editForm.index? newApplications:app
+        )
+      )
     }else{
-      e.preventDefault();
-      console.log(company,role,appliedDate,status);
       setApplications(prev => [...prev,newApplications]);
-      e.target.reset();
-      setShowForm(false);
     }
+    e.target.reset();
+    setEditForm(null);
+    setShowForm(false);
   }
 
   const handleDelete=(index)=> {
@@ -46,7 +47,7 @@ const Dashboard=()=> {
     application.status==="Offer").length;
 
   return (
-    <div>
+    <div className="dashboard-container">
       <section className="dashboard">
         <div className="dashboard-card">
           <label>Total Applications</label>
@@ -88,8 +89,10 @@ const Dashboard=()=> {
                       <td>
                         <button onClick={()=> handleDelete(index)}>Delete</button>
                         <button onClick={()=> {
-                          setEditForm(...application,index)
-                        }}>Edit</button>
+                            setEditForm({...application,index});
+                            setShowForm(true);
+                          }
+                        }>Edit</button>
                       </td>
                   </tr>
                 ))}
@@ -97,45 +100,51 @@ const Dashboard=()=> {
             </table>
           </div>
       </section>
-      <button onClick={()=>setShowForm(true)}>ADD Application</button>
+      <button onClick={()=>setShowForm(true)} className="addAppBtn">ADD Application</button>
       {showForm && (
-        <>
-          <h2>Add New Application</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Comapany Name</label>
-              <input 
+        <div className="form-overlay">
+          <div className="app-form">
+            <h2>Add New Application</h2>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>Comapany Name</label>
+                <input 
+                  type="text" 
+                  name="company" 
+                  placeholder="Enter Company Name" 
+                  defaultValue={editForm?.company || ""}
+                  required
+                />
+                <label>Job Role</label>
+                <input 
                 type="text" 
-                name="company" 
-                placeholder="Enter Company Name" 
-                defaultValue={editForm?.company || ""}
+                name="role"
+                placeholder="Enter Role" 
+                defaultValue={editForm?.role || ""}
                 required
-              />
-              <label>Job Role</label>
-              <input 
-               type="text" 
-               name="role"
-               placeholder="Enter Role" 
-               defaultValue={editForm?.role || ""}
-               required
-              />
-              <label>Applied Date</label>
-              <input
-                type="date"
-                name="appliedDate"
-                defaultValue={editForm?.appliedDate || ""}
-                required
-              />
-              <label>Status defaultValue={editForm?.status || ""}</label>
-              <select name="status" required>
-                <option value="Applied">Applied</option>
-                <option value="Interview">Interview</option>
-                <option value="Offer">Offer</option>
-              </select>
-              <button type='submit'>Submit</button>
-            </div>
-          </form>
-        </>
+                />
+                <label>Applied Date</label>
+                <input
+                  type="date"
+                  name="appliedDate"
+                  defaultValue={editForm?.appliedDate || ""}
+                  required
+                />
+                <label>Status</label>
+                <select 
+                  name="status" 
+                  defaultValue={editForm?.status || "Applied"}
+                  required
+                >
+                  <option value="Applied">Applied</option>
+                  <option value="Interview">Interview</option>
+                  <option value="Offer">Offer</option>
+                </select>
+                <button type='submit' className="submitBtn">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );

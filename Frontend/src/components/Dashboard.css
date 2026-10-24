@@ -1,3 +1,8 @@
+.dashboard-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:30px 20px;
+}
 .dashboard {
     display:grid;
     grid-template-columns:repeat(4, 1fr);
@@ -6,25 +11,38 @@
 .dashboard-card {
     background-color:white;
     border:1px solid #e2e8f0;
-    border-radius:12px;
-    padding:20px;
+    border-radius:14px;
+    padding:22px;
+    box-shadow:0 4px 12px rgba(15, 23, 42, 0.05);
+    transition:0.2s ease;
+}
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
 }
 .dashboard-card label {
-    font-size:16px;
+    font-size:14px;
     font-weight:600;
     color:#64748b;
 }
 .dashboard-card p {
-    font-size:28px;
-    font-weight:bold;
+    font-size:30px;
+    font-weight:700;
+    color:#0f172a;
     margin:10px 0 0;
 }
 .application-section{
     background-color:white;
-    padding:20px;
-    border-radius:10px;
-    border:1px solid #e2e8f0;
-    margin-top:24px;
+    padding: 24px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    margin-top: 24px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+.application-section h2{
+    margin-top:0;
+    margin-bottom:20px;
+    color: #0f172a;
 }
 .table-container{
     width: 100%;
@@ -32,27 +50,55 @@
 }
 table{
     width:100%;
-    margin:auto;
     text-align:left;
     border-collapse: collapse;
+    min-width:650px;
 }
 th,td{
-    padding:12px;
+    padding:14px 12px;
     border-bottom:1px solid #e2e8f0;
 }
-th{
-    background-color:#f1f5f9;
-    color:#475569;
-    font-size:16px;
-    font-weight:600;
+th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
 }
-@media(max-width:768px){
+
+td {
+    color: #334155;
+    font-size: 14px;
+}
+.addAppBtn{
+    border:none;
+    padding:11px 18px;
+    margin-top:20px;
+    background-color:#2563eb;
+    color:white;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s ease;
+}
+.addAppBtn:hover {
+    background-color: #1d4ed8;
+}
+@media(max-width:900px){
     .dashboard{
         grid-template-columns:repeat(2,1fr);
     }
 }
-@media(max-width:435px){
-    .dashboard{
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding: 20px 12px;
+    }
+
+    .dashboard {
         grid-template-columns: 1fr;
+    }
+
+    .application-section {
+        padding: 16px;
     }
 }
