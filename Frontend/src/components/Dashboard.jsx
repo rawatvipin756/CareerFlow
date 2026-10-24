@@ -4,24 +4,32 @@ import {useState} from "react";
 const Dashboard=()=> {
   let [showForm,setShowForm]=useState(false);
   const [applications,setApplications]=useState([]);
+  const [editForm,setEditForm]=useState(null);
 
   const handleSubmit=(e)=> {
     e.preventDefault();
     const formData=new FormData(e.target);
-    const company=formData.get("company");
-    const role=formData.get("role");
-    const appliedDate=formData.get("appliedDate");
-    const status=formData.get("status");
-    const newApplications={
-      company,
-      role,
-      appliedDate,
-      status
-    };
-    console.log(company,role,appliedDate,status);
-    setApplications(prev => [...prev,newApplications]);
-    e.target.reset();
-    setShowForm(false);
+      const company=formData.get("company");
+      const role=formData.get("role");
+      const appliedDate=formData.get("appliedDate");
+      const status=formData.get("status");
+      const newApplications={
+        company,
+        role,
+        appliedDate,
+        status
+      };
+    if(editForm){
+      setApplications(prev=> prev.map((app,index)=> 
+        index===editForm.index? newApplications:app
+      ))
+    }else{
+      e.preventDefault();
+      console.log(company,role,appliedDate,status);
+      setApplications(prev => [...prev,newApplications]);
+      e.target.reset();
+      setShowForm(false);
+    }
   }
 
   const handleDelete=(index)=> {
@@ -77,7 +85,12 @@ const Dashboard=()=> {
                       <td>{application.role}</td>
                       <td>{application.status}</td>
                       <td>{application.appliedDate}</td>
-                      <td><button onClick={()=> handleDelete(index)}>Delete</button></td>
+                      <td>
+                        <button onClick={()=> handleDelete(index)}>Delete</button>
+                        <button onClick={()=> {
+                          setEditForm(...application,index)
+                        }}>Edit</button>
+                      </td>
                   </tr>
                 ))}
               </tbody>
@@ -95,6 +108,7 @@ const Dashboard=()=> {
                 type="text" 
                 name="company" 
                 placeholder="Enter Company Name" 
+                defaultValue={editForm?.company || ""}
                 required
               />
               <label>Job Role</label>
@@ -102,15 +116,17 @@ const Dashboard=()=> {
                type="text" 
                name="role"
                placeholder="Enter Role" 
+               defaultValue={editForm?.role || ""}
                required
               />
               <label>Applied Date</label>
               <input
                 type="date"
                 name="appliedDate"
+                defaultValue={editForm?.appliedDate || ""}
                 required
               />
-              <label>Status</label>
+              <label>Status defaultValue={editForm?.status || ""}</label>
               <select name="status" required>
                 <option value="Applied">Applied</option>
                 <option value="Interview">Interview</option>
