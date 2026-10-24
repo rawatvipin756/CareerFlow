@@ -1,9 +1,13 @@
+import "./Navbar.css";
+
 const Navbar=()=>{
     return(
-        <header>
-            <h1>CareerFlow</h1>
-            <p>Track your job applications in one place.</p>
-        </header>
+        <div className="header">
+            <header>
+                <h1>CareerFlow</h1>
+                <p>Track your job applications in one place.</p>
+            </header>
+        </div>
     );
 };
 

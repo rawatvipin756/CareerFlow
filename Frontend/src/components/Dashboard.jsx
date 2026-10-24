@@ -80,22 +80,33 @@ const Dashboard=()=> {
                 </tr>
               </thead>
               <tbody>
-                {applications.map((application,index)=> (
+                {applications.length===0? (
+                  <tr>
+                    <td colSpan="5" className="empty-state">
+                      <h3>No applications yet</h3>
+                      <p>Start tracking your job search by adding your first application.</p>
+                    </td>
+                  </tr>
+                ):(applications.map((application,index)=> (
                   <tr key={index}>
                       <td>{application.company}</td>
                       <td>{application.role}</td>
-                      <td>{application.status}</td>
+                      <td>
+                        <span className={`status-badge ${application.status.toLowerCase()}`}>
+                          {application.status}
+                        </span>
+                      </td>
                       <td>{application.appliedDate}</td>
                       <td>
-                        <button onClick={()=> handleDelete(index)}>Delete</button>
-                        <button onClick={()=> {
+                        <button className="delBtn" onClick={()=> handleDelete(index)}>Delete</button>
+                        <button className="editBtn" onClick={()=> {
                             setEditForm({...application,index});
                             setShowForm(true);
                           }
                         }>Edit</button>
                       </td>
                   </tr>
-                ))}
+                )))}
               </tbody>
             </table>
           </div>
@@ -141,6 +152,15 @@ const Dashboard=()=> {
                   <option value="Offer">Offer</option>
                 </select>
                 <button type='submit' className="submitBtn">Submit</button>
+                <button 
+                  type="button"
+                  className="cancel-btn"
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditForm(null);
+                    }}
+                  >Cancel
+                </button>
               </div>
             </form>
           </div>
