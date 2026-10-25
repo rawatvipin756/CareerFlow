@@ -2,13 +2,16 @@ const express= require("express");
 const cors= require("cors");
 require("dotenv").config();
 const mongoose=require("mongoose");
+const applicationRoutes=require("./src/routes/applicationRoutes");
 
 const app=express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/",(rea,res)=> {
+app.use("/api/applications", applicationRoutes);
+
+app.get("/",(req,res)=> {
     res.send("CareerFlow backend is running!");
 });
 
