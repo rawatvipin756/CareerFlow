@@ -48,6 +48,10 @@ const Dashboard=()=> {
 
   return (
     <div className="dashboard-container">
+      <div className="page-heading">
+        <h1>Dashboard</h1>
+        <p>Overview of your job search progress.</p>
+      </div>
       <section className="dashboard">
         <div className="dashboard-card">
           <label>Total Applications</label>
