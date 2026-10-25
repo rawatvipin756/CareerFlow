@@ -1,10 +1,23 @@
 import "./Dashboard.css";
-import {useState} from "react";
+import {useState,useEffect} from "react";
+import API from "../api/application";
 
 const Dashboard=()=> {
   let [showForm,setShowForm]=useState(false);
   const [applications,setApplications]=useState([]);
   const [editForm,setEditForm]=useState(null);
+
+  useEffect(()=> {
+  const fetchApplications=async ()=> {
+    try{
+        const response=await API.get("/");
+        setApplications(response.data);
+      }catch(error){
+        console.error("Error fetching application ",error);
+      }
+    };
+    fetchApplications();
+  },[]);
 
   const handleSubmit=(e)=> {
     e.preventDefault();

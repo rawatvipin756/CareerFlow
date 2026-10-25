@@ -38,8 +38,16 @@ router.put("/:id",async (req,res)=> {
 
 router.delete("/:id",async (req,res)=> {
     try{
-        const application=await Application.findByIdAndDelete
+        const application=await Application.findByIdAndDelete(req.params.id);
+        if(!application){
+            return res.status(404).json({
+                message:"Application not found"
+            });
+        }
+        res.status(200).json({message:"Application deleted successfully"});
+    }catch(error){
+        res.status(500).json({message:error.message});
     }
-})
+});
 
 module.exports=router;
