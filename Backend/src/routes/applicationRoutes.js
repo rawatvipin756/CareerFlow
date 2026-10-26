@@ -1,8 +1,9 @@
 const express=require("express");
 const Application= require("../models/application.js");
 const router=express.Router();
+const authMiddleware=require("../middleware/authMiddleware.js");
 
-router.post("/",async (req,res)=> {
+router.post("/",authMiddleware,async (req,res)=> {
     try{
         const application=await Application.create(req.body);
         res.status(201).json(application);
@@ -11,7 +12,7 @@ router.post("/",async (req,res)=> {
     }
 });
 
-router.get("/",async (req,res)=> {
+router.get("/",authMiddleware,async (req,res)=> {
     try{
         const applications=await Application.find();
         res.status(201).json(applications);
@@ -20,7 +21,7 @@ router.get("/",async (req,res)=> {
     }
 });
 
-router.put("/:id",async (req,res)=> {
+router.put("/:id",authMiddleware,async (req,res)=> {
     try{
         const application=await Application.findByIdAndUpdate(
             req.params.id,
@@ -36,7 +37,7 @@ router.put("/:id",async (req,res)=> {
     }
 });
 
-router.delete("/:id",async (req,res)=> {
+router.delete("/:id",authMiddleware,async (req,res)=> {
     try{
         const application=await Application.findByIdAndDelete(req.params.id);
         if(!application){
