@@ -47,10 +47,10 @@ router.post("/login", async (req,res)=> {
         if(!isPasswordValid){
             return res.status(401).json({message:"Invalid email or assword"});
         }
-        const token=jwi.sign(
+        const token=jwt.sign(
             {userId:user._id},
             process.env.JWT_SECRET,
-            {expiresIn:"Id"}
+            {expiresIn:"1d"}
         );
         res.status(200).json({message:"Login successful",token,user:{
             id:user._id,
@@ -58,7 +58,8 @@ router.post("/login", async (req,res)=> {
             email:user.email
         }});
     }catch(error){
-        res.status(500).json({message:"error.message"});
+        console.error("Login error:", error);
+        res.status(500).json({message:error.message});
     }
 })
 
