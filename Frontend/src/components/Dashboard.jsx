@@ -19,7 +19,7 @@ const Dashboard=()=> {
     fetchApplications();
   },[]);
 
-  const handleSubmit=(e)=> {
+  const handleSubmit=async (e)=> {
     e.preventDefault();
     const formData=new FormData(e.target);
     const company=formData.get("company");
@@ -32,22 +32,29 @@ const Dashboard=()=> {
       appliedDate,
       status
     };
-    if(editForm){
-      setApplications(prev=> 
-        prev.map((app,index)=> 
-          index===editForm.index? newApplications:app
-        )
-      )
-    }else{
-      setApplications(prev => [...prev,newApplications]);
+    try{
+      if(editForm){
+        await API.put(`/${editForm._id}`,newApplications);
+      }else{
+        await API.post("/",newApplications);
+      }
+      const response=await API.get("/");
+      setApplications(response.data);
+    }catch(error){
+      console.error("Error saving application ",error);
     }
     e.target.reset();
     setEditForm(null);
     setShowForm(false);
   }
 
-  const handleDelete=(index)=> {
-    setApplications(prev=> prev.filter((application,i)=> i !== index));
+  const handleDelete= async (id)=> {
+    try{
+      await API.delete(`/${id}`);
+      setApplications(prev=> prev.filter(application=> application._id!==id));
+    }catch(error){
+      console.error("Error deleting application",error);
+    }
   }
 
   let countApp=applications.filter(application => 
@@ -126,11 +133,11 @@ const Dashboard=()=> {
                           {application.status}
                         </span>
                       </td>
-                      <td>{application.appliedDate}</td>
+                      <td>{application.appliedDate?.split("T")[0]}</td>
                       <td>
-                        <button className="delBtn" onClick={()=> handleDelete(index)}>Delete</button>
+                        <button className="delBtn" onClick={()=> handleDelete(application._id)}>Delete</button>
                         <button className="editBtn" onClick={()=> {
-                            setEditForm({...application,index});
+                            setEditForm(application);
                             setShowForm(true);
                           }
                         }>Edit</button>
@@ -167,7 +174,7 @@ const Dashboard=()=> {
                 <input
                   type="date"
                   name="appliedDate"
-                  defaultValue={editForm?.appliedDate || ""}
+                  defaultValue={editForm?.appliedDate?.split("T")[0] || ""}
                   required
                 />
                 <label>Status</label>
