@@ -5,7 +5,10 @@ const authMiddleware=require("../middleware/authMiddleware.js");
 
 router.post("/",authMiddleware,async (req,res)=> {
     try{
-        const application=await Application.create(req.body);
+        const application=await Application.create({
+            ...req.body,
+            userId:req.userId
+        });
         res.status(201).json(application);
     }catch(error){
         res.status(500).json({message:error.message});
@@ -14,7 +17,9 @@ router.post("/",authMiddleware,async (req,res)=> {
 
 router.get("/",authMiddleware,async (req,res)=> {
     try{
-        const applications=await Application.find();
+        const applications=await Application.find({
+            userId:req.userId
+        });
         res.status(201).json(applications);
     }catch(error){
         res.status(500).json({message:error.message});
@@ -23,8 +28,10 @@ router.get("/",authMiddleware,async (req,res)=> {
 
 router.put("/:id",authMiddleware,async (req,res)=> {
     try{
-        const application=await Application.findByIdAndUpdate(
-            req.params.id,
+        const application=await Application.findByIdAndUpdate({
+            _id:req.params.id,
+            userId:req.userId
+        },
             req.body,
             {new:true,runValidators:true}
         );
@@ -39,7 +46,10 @@ router.put("/:id",authMiddleware,async (req,res)=> {
 
 router.delete("/:id",authMiddleware,async (req,res)=> {
     try{
-        const application=await Application.findByIdAndDelete(req.params.id);
+        const application=await Application.findByIdAndDelete({
+            _id:req.params.id,
+            userId:req.userId
+        });
         if(!application){
             return res.status(404).json({
                 message:"Application not found"

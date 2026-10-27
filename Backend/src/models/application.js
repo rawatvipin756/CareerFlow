@@ -19,6 +19,11 @@ const applicationSchema=new mongoose.Schema(
             type:String,
             enum:["Applied","Interview","Offer"],
             default:"Applied"
+        },
+        userId:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User",
+            required:true
         }
     },
     {
