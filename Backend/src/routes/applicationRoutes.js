@@ -15,15 +15,16 @@ router.post("/",authMiddleware,async (req,res)=> {
     }
 });
 
-router.get("/",authMiddleware,async (req,res)=> {
-    try{
-        const applications=await Application.find({
-            userId:req.userId
-        });
-        res.status(201).json(applications);
-    }catch(error){
-        res.status(500).json({message:error.message});
-    }
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const applications = await Application.find({
+      userId: req.userId
+    });
+    res.status(200).json(applications);
+  } catch (error) {
+    console.error("GET applications error:", error);
+    res.status(500).json({ message: error.message });
+  }
 });
 
 router.put("/:id",authMiddleware,async (req,res)=> {
