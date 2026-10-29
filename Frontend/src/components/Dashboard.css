@@ -240,6 +240,24 @@
   border-radius: 18px;
   background: #111827;
   box-shadow: 0 24px 70px #00000060;
+  position:relative;
+}
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 .app-form h2 {

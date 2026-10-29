@@ -152,6 +152,11 @@ const Dashboard=()=> {
       {showForm && (
         <div className="form-overlay">
           <div className="app-form">
+            <button type="button" className="close-btn" 
+              onClick={() => { 
+                setShowForm(false);
+                setEditForm(null);
+            }}>×</button>
             <h2>{editForm ? "Edit Your Application" : "Add New Application"}</h2>
             <form onSubmit={handleSubmit}>
               <div>
