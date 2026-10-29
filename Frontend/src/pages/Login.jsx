@@ -1,7 +1,7 @@
 import {useState} from "react";
 import axios from "axios";
 import { Link,useNavigate } from "react-router-dom";
-import "./login.css";
+import "./auth.css";
 
 function Login(){
     const [email,setEmail]=useState("");
@@ -22,13 +22,13 @@ function Login(){
         }
     }
     return(
-        <div className="login-page">
-            <div className="login-brand">
+        <div className="auth-page">
+            <div className="auth-brand">
                 <div className="brand-icon">
                     <span>CareerFlow</span>
                 </div>
-                <div className="login-card">
-                    <div className="login-heading">
+                <div className="auth-card">
+                    <div className="auth-heading">
                         <span className="login-label">Welcome Back</span>
                         <h1>Sign in to your account</h1>
                         <p>Continue your journey toward your dream career.</p>
@@ -38,9 +38,9 @@ function Login(){
                     onChange={(e)=> setEmail(e.target.value)} required />
                     <input type="password" placeholder="Enter Password" value={password}
                     onChange={(e)=> setPassword(e.target.value)} required />
-                    <button className="login-button" type="submit">Sign in <span>→</span></button>
+                    <button className="auth-button" type="submit">Sign in <span>→</span></button>
                 </form>
-                <p className="login-switch">
+                <p className="auth-switch">
                     Don't have an account? <Link to="/signup">Sign up</Link>
                 </p>
             </div>
