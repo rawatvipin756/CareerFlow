@@ -106,7 +106,6 @@ const Dashboard=()=> {
                   setShowForm(true);
               }}> + Add Application</button>
          </div>
-        <h2>Your Application</h2>
           <div className="table-container">
             <table>
               <thead>
@@ -153,7 +152,7 @@ const Dashboard=()=> {
       {showForm && (
         <div className="form-overlay">
           <div className="app-form">
-            <h2>Add New Application</h2>
+            <h2>{editForm ? "Edit Your Application" : "Add New Application"}</h2>
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Comapany Name</label>
