@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API =axios.create({
-    baseURL:"http://localhost:5000/api/applications"
+    baseURL:"https://careerflow-yw0a.onrender.com/api/applications"
 });
 
 API.interceptors.request.use((config)=> {

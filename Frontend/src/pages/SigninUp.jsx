@@ -15,7 +15,7 @@ function Signup() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/signup",
+        "https://careerflow-yw0a.onrender.com/api/auth/signup",
         { name, email, password }
       );
 
