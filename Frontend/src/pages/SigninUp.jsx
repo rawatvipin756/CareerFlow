@@ -15,7 +15,7 @@ function Signup() {
 
     try {
       await axios.post(
-        "https://careerflow-yw0a.onrender.com/api/auth/signup",
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         { name, email, password }
       );
 

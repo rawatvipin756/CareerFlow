@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API =axios.create({
-    baseURL:"https://careerflow-yw0a.onrender.com/api/applications"
-});
+    baseURL:`${import.meta.env.VITE_API_URL}/api/applications`
+})
 
 API.interceptors.request.use((config)=> {
     const token=localStorage.getItem("token");
