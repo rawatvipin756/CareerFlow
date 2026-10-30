@@ -6,7 +6,7 @@ It provides a centralized dashboard to manage career opportunities and stay orga
 
 ## 🌐 Live Demo
 
-[View Live Demo](https://careerflow-yw0a.onrender.com/)
+[View Live Demo](https://careerflow-1-valx.onrender.com/)
 
 ## ✨ Features
 
